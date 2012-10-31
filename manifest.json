@@ -1,18 +1,19 @@
 ﻿{
-  "name": "第一个Chrome插件",
+  "name": "Hi-PDA-Extension",
   "version": "1.0",
-  "description": "我的第一个Chrome插件，还不错吧",
-  "browser_action": {
-    "default_icon": "icon.gif",
-    "popup": "popup.html" 
-  },
+  "description": "Hi-PDA",
   "options_page": "options.html",
+  "background" :  {
+    "scripts": ["js/eventPage.js"],
+    "persistent": false
+  },
+  "permissions": ["storage"],
   "content_scripts":[
     {
      "matches" : [    
        "http://*.hi-pda.com/*"  
       ],    
-     "js": ["js/jquery.js","js/jquery-ui.js","js/jquery.form.js","js/contentscript.js"],
+     "js": ["js/jquery-1.8.2.js","js/jquery-ui.js","js/contentscript.js","js/jquery-ui.css"],
       "run_at" : "document_end",
       "all_frames" : false
     }

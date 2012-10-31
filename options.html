@@ -1,4 +1,53 @@
-<p>Hello,Chrome!</p>
-<p>选项页</p>
-<p><img src="smile.gif" /></p>
-<input id = "name"></input>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="js/jquery-ui.css" />
+	<script src="js/jquery-1.8.2.js"></script>
+	<script src="js/jquery-ui.js"></script>
+<!--	 <script src="js/contentscript.js"></script>-->
+	<!-- <link rel="stylesheet" href="/resources/demos/style.css" /> -->
+    <script>
+	var blacklist = localStorage.getItem("blacklist").split(",");
+    $(function() {
+        $("#accordion").accordion();
+        if(!localStorage.getItem("blacklist")){
+              localStorage.setItem("blacklist","");   
+        }
+
+        for(i = 0; i < blacklist.length -1; i++)
+        {
+        	$("#list").append("<tr><td>"+blacklist[i]+"</td>\
+        		<td><button class='delete' id='btn_"+i+"'>删除</button></td></tr>");
+        }
+    });
+
+    $(".delete").live('click',function(){
+        var is_confirm = window.confirm("确定洗白ta？");
+        if(is_confirm){
+        	var id = this.id.split("_")[1];
+        	blacklist.splice(id,1);
+        	var temp='';
+        	for(i = 0; i < blacklist.length -1; i++)
+        	{
+        		temp = temp + blacklist[i] + ',';
+        	}
+        	alert(temp);
+        	localStorage.setItem("blacklist",temp);
+        	window.location.reload();
+        }
+    })    
+    </script>
+    <style type="text/css">
+    	#blacklist{height: 200px}
+	</style>
+</head>
+<body>
+<div id="accordion" >
+	<h3>黑名单</h3>
+	<div id = "blacklist">
+		<table id = "list">
+		</table>
+	</div>
+</div>
+</body>
+</html>
